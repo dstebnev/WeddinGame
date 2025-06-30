@@ -260,19 +260,6 @@ function draw(){
         ctx.fillRect(0, 0, width, height);
     }
 
-    if(!gameStarted){
-        ctx.fillStyle = 'white';
-        ctx.font = '48px sans-serif';
-        const title = 'Свадьба Ксюши и Дани';
-        const titleW = ctx.measureText(title).width;
-        ctx.fillText(title, (width-titleW)/2, height/2 - 60);
-        ctx.font = '32px sans-serif';
-        const prompt = 'Нажми большой Enter для начала';
-        const pW = ctx.measureText(prompt).width;
-        ctx.fillText(prompt,(width-pW)/2, height/2);
-        return;
-    }
-
     player.draw();
     obstacles.forEach(o=>o.draw());
     bonuses.forEach(b=>b.draw());
