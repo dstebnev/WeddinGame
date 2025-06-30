@@ -32,6 +32,43 @@ let startTime = 0;
 const gameDuration = 30000; // 30s
 let score = 0;
 
+// Scoreboard
+const scoreboardKey = 'scoreboard';
+let scoreboard = JSON.parse(localStorage.getItem(scoreboardKey) || '[]');
+let currentUser = '';
+let resultSaved = false;
+
+const usernameOverlay = document.getElementById('usernameOverlay');
+const usernameInput = document.getElementById('usernameInput');
+const startButton = document.getElementById('startButton');
+const scoreTableBody = document.querySelector('#scoreTable tbody');
+
+function updateScoreboard(){
+    scoreTableBody.innerHTML = '';
+    scoreboard.forEach(entry=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${entry.name}</td><td>${entry.score}</td>`;
+        scoreTableBody.appendChild(tr);
+    });
+}
+
+function saveResult(){
+    scoreboard.push({name:currentUser, score});
+    localStorage.setItem(scoreboardKey, JSON.stringify(scoreboard));
+    updateScoreboard();
+}
+
+updateScoreboard();
+
+startButton.addEventListener('click', ()=>{
+    const name = usernameInput.value.trim();
+    if(name){
+        currentUser = name;
+        usernameOverlay.style.display = 'none';
+        startGame();
+    }
+});
+
 // Background scrolling
 let bgX1 = 0;
 let bgX2 = width;
@@ -118,10 +155,15 @@ function intersects(r1,r2){
 }
 
 function startGame(){
+    if(!currentUser){
+        usernameOverlay.style.display = 'flex';
+        return;
+    }
     gameStarted = true;
     isGameOver = false;
     hasWon = false;
     score = 0;
+    resultSaved = false;
     obstacleTimer = 0;
     bonusTimer = 0;
     nextObstacleTime = randRange(40,80);
@@ -234,6 +276,10 @@ function draw(){
     ctx.fillText(remaining.toString().padStart(2,'0'), 70, 60);
 
     if(isGameOver){
+        if(!resultSaved){
+            saveResult();
+            resultSaved = true;
+        }
         ctx.fillStyle='white';
         ctx.font = '64px sans-serif';
         const text = hasWon ? 'Победа!' : 'Game Over!';
