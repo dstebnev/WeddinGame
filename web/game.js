@@ -301,9 +301,12 @@ function draw(){
         const stW = ctx.measureText(scoreText).width;
         ctx.fillText(scoreText, (width-stW)/2, height/2+10);
         ctx.font='32px sans-serif';
-        const restartText='Click to restart';
-        const rW=ctx.measureText(restartText).width;
-        ctx.fillText(restartText, (width-rW)/2, height/2+60);
+        const restartText1='Shift - снова играть';
+        const restartText2='Tab - новый игрок';
+        const r1W=ctx.measureText(restartText1).width;
+        const r2W=ctx.measureText(restartText2).width;
+        ctx.fillText(restartText1, (width-r1W)/2, height/2+60);
+        ctx.fillText(restartText2, (width-r2W)/2, height/2+100);
     }
 }
 
@@ -316,9 +319,18 @@ function gameLoop(){
 // Events
 window.addEventListener('keydown', e=>{
     if(e.code==='Space' || e.code==='Enter'){
-        if(!gameStarted) startGame();
-        else if(isGameOver) startGame();
-        else player.jump();
+        if(!gameStarted) {
+            startGame();
+        } else if(!isGameOver) {
+            player.jump();
+        }
+    } else if(isGameOver && (e.code==='ShiftLeft' || e.code==='ShiftRight')){
+        startGame();
+    } else if(isGameOver && e.code==='Tab'){
+        e.preventDefault();
+        currentUser='';
+        usernameOverlay.style.display='flex';
+        gameStarted=false;
     }
 });
 
