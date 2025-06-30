@@ -215,6 +215,10 @@ function startGame(){
     tutorialMessages.length = 0;
     firstObstacleMessageShown = false;
     firstBonusMessageShown = false;
+    // Reset player state so a mid-air game over doesn't carry over
+    player.y = floorY;
+    player.yVelocity = 0;
+    player.isJumping = false;
     startTime = performance.now();
 }
 
