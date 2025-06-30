@@ -29,6 +29,7 @@ let gameStarted = false;
 let isGameOver = false;
 let startTime = 0;
 let score = 0;
+let bonusScore = 0;
 let difficulty = 1; // multiplier for obstacle speed and spawn rate
 const difficultyIncrease = 0.00005;
 
@@ -167,6 +168,7 @@ function startGame(){
     gameStarted = true;
     isGameOver = false;
     score = 0;
+    bonusScore = 0;
     resultSaved = false;
     difficulty = 1;
     obstacleTimer = 0;
@@ -182,7 +184,7 @@ function update(){
     if(!gameStarted || isGameOver) return;
 
     const now = performance.now();
-    score = Math.floor((now - startTime) / 100);
+    score = Math.floor((now - startTime) / 100) + bonusScore;
 
     difficulty += difficultyIncrease;
 
@@ -219,6 +221,7 @@ function update(){
     bonuses.forEach((b,i)=>{
         if(intersects(player.rect(), b.rect())){
             bonuses.splice(i,1);
+            bonusScore += 10;
         }
     });
 
