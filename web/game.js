@@ -331,12 +331,6 @@ window.addEventListener('keydown', e=>{
     }
 });
 
-canvas.addEventListener('mousedown', ()=>{
-    if(!gameStarted) startGame();
-    else if(isGameOver) startGame();
-    else player.jump();
-});
-
 window.addEventListener('resize', ()=>{
     width = window.innerWidth;
     height = window.innerHeight;
