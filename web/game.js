@@ -12,7 +12,7 @@ const assetsPath = 'assets/';
 const images = {
     background: loadImage('background.png'),
     player: loadImage('player.png'),
-    obstacles: [1,2,3].map(i => loadImage(`obstacle_${i}.webp`)),
+    obstacles: [1,2,3].map(i => loadImage(`obstacle_${i}.png`)),
     bonuses: [1,2,3,4,5,6,7,8,9].map(i => loadImage(`bonus_${i}.webp`)),
     iconStar: loadImage('ic_star.webp'),
     iconClock: loadImage('ic_clock.webp'),
