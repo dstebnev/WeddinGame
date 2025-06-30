@@ -13,9 +13,8 @@ const images = {
     background: loadImage('background.png'),
     player: loadImage('player.png'),
     obstacles: [1,2,3].map(i => loadImage(`obstacle_${i}.png`)),
-    bonuses: [1,2,3,4,5,6,7,8,9].map(i => loadImage(`bonus_${i}.webp`)),
+    bonuses: [1].map(i => loadImage(`bonus_${i}.png`)),
     iconStar: loadImage('ic_star.webp'),
-    iconClock: loadImage('ic_clock.webp'),
 };
 
 function loadImage(name){
