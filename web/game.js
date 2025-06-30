@@ -27,9 +27,7 @@ function loadImage(name){
 // Game variables
 let gameStarted = false;
 let isGameOver = false;
-let hasWon = false;
 let startTime = 0;
-const gameDuration = 30000; // 30s
 let score = 0;
 let difficulty = 1; // multiplier for obstacle speed and spawn rate
 const difficultyIncrease = 0.00005;
@@ -168,7 +166,6 @@ function startGame(){
     scoreboardDiv.style.display = 'none';
     gameStarted = true;
     isGameOver = false;
-    hasWon = false;
     score = 0;
     resultSaved = false;
     difficulty = 1;
@@ -185,10 +182,7 @@ function update(){
     if(!gameStarted || isGameOver) return;
 
     const now = performance.now();
-    if(now - startTime >= gameDuration){
-        isGameOver = true;
-        hasWon = score >= 50;
-    }
+    score = Math.floor((now - startTime) / 100);
 
     difficulty += difficultyIncrease;
 
@@ -225,11 +219,6 @@ function update(){
     bonuses.forEach((b,i)=>{
         if(intersects(player.rect(), b.rect())){
             bonuses.splice(i,1);
-            score += 5;
-            if(score>=50){
-                hasWon = true;
-                isGameOver = true;
-            }
         }
     });
 
@@ -278,13 +267,6 @@ function draw(){
     ctx.font = '32px sans-serif';
     ctx.fillText(score.toString().padStart(2,'0'), width - blockW +40, 60);
 
-    // timer block
-    const remaining = Math.max(0, Math.floor((gameDuration - (performance.now()-startTime))/1000));
-    ctx.fillStyle = 'rgba(255,215,0,0.7)';
-    ctx.fillRect(20, 20, blockW, blockH);
-    ctx.drawImage(images.iconClock, 25,25,40,40);
-    ctx.fillStyle='black';
-    ctx.fillText(remaining.toString().padStart(2,'0'), 70, 60);
 
     if(isGameOver){
         if(!resultSaved){
@@ -293,7 +275,7 @@ function draw(){
         }
         ctx.fillStyle='white';
         ctx.font = '64px sans-serif';
-        const text = hasWon ? 'Победа!' : 'Game Over!';
+        const text = 'Game Over!';
         const tW = ctx.measureText(text).width;
         ctx.fillText(text, (width-tW)/2, height/2 - 40);
         ctx.font='40px sans-serif';
