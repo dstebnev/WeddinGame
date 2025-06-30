@@ -93,6 +93,8 @@ usernameInput.addEventListener('keydown', (e) => {
             usernameOverlay.style.display = 'none';
             startGame();
         }
+        // Prevent the event from bubbling to the global listener
+        e.stopPropagation();
     }
 });
 
@@ -347,6 +349,8 @@ function gameLoop(){
 
 // Events
 window.addEventListener('keydown', e=>{
+    // Ignore global key events when the username overlay is visible
+    if (usernameOverlay.style.display !== 'none') return;
     if(e.code==='Space' || e.code==='Enter'){
         if(!gameStarted) {
             startGame();
