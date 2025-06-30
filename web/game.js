@@ -50,10 +50,10 @@ const tutorialMessages = [];
 let firstObstacleMessageShown = false;
 let firstBonusMessageShown = false;
 
-function addTutorialMessage(text){
+function addTutorialMessage(text, speed){
     ctx.font = '32px sans-serif';
     const widthText = ctx.measureText(text).width;
-    tutorialMessages.push({text, x: width, y: height - 40, speed: 6, width: widthText});
+    tutorialMessages.push({text, x: width, y: height - 40, speed: speed, width: widthText});
 }
 
 function updateScoreboard(){
@@ -159,7 +159,7 @@ function createObstacle(){
         rect(){return {left:this.x+20,top:this.y-this.height+30,right:this.x+this.width-25,bottom:this.y-20};}
     });
     if(!firstObstacleMessageShown){
-        addTutorialMessage('Перепрыгивай стоги сена на Enter');
+        addTutorialMessage("Перепрыгивай стоги сена! Нажимай Enter", 7);
         firstObstacleMessageShown = true;
     }
 }
@@ -178,7 +178,7 @@ function createBonus(){
         rect(){return {left:this.x+10,top:this.y-this.height+10,right:this.x+this.width-10,bottom:this.y-10};}
     });
     if(!firstBonusMessageShown){
-        addTutorialMessage('За бонус +10 баллов');
+        addTutorialMessage("За бонус +10 баллов", 7);
         firstBonusMessageShown = true;
     }
 }
