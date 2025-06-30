@@ -32,7 +32,7 @@ let startTime = 0;
 const gameDuration = 30000; // 30s
 let score = 0;
 let difficulty = 1; // multiplier for obstacle speed and spawn rate
-const difficultyIncrease = 0.0005;
+const difficultyIncrease = 0.00005;
 
 // Scoreboard
 const scoreboardKey = 'scoreboard';
