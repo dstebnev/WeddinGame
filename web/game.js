@@ -95,8 +95,8 @@ const bgSpeed = 5;
 const player = {
     x: 100,
     y: height * 0.8,
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 200,
     yVelocity: 0,
     gravity: 1.2,
     jumpStrength: -25,
