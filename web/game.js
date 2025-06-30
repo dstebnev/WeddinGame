@@ -31,6 +31,8 @@ let hasWon = false;
 let startTime = 0;
 const gameDuration = 30000; // 30s
 let score = 0;
+let difficulty = 1; // multiplier for obstacle speed and spawn rate
+const difficultyIncrease = 0.0005;
 
 // Scoreboard
 const scoreboardKey = 'scoreboard';
@@ -131,7 +133,7 @@ function createObstacle(){
         width:80,
         height:80,
         speed:10,
-        update(){this.x -= this.speed;},
+        update(){this.x -= this.speed * difficulty;},
         draw(){ctx.drawImage(img, this.x, this.y - this.height, this.width, this.height);},
         rect(){return {left:this.x+20,top:this.y-this.height+20,right:this.x+this.width-20,bottom:this.y-20};}
     });
@@ -146,7 +148,7 @@ function createBonus(){
         width:60,
         height:60,
         speed:10,
-        update(){this.x -= this.speed;},
+        update(){this.x -= this.speed * difficulty;},
         draw(){ctx.drawImage(img, this.x, this.y - this.height, this.width, this.height);},
         rect(){return {left:this.x+10,top:this.y-this.height+10,right:this.x+this.width-10,bottom:this.y-10};}
     });
@@ -169,6 +171,7 @@ function startGame(){
     hasWon = false;
     score = 0;
     resultSaved = false;
+    difficulty = 1;
     obstacleTimer = 0;
     bonusTimer = 0;
     nextObstacleTime = randRange(40,80);
@@ -187,6 +190,8 @@ function update(){
         hasWon = score >= 50;
     }
 
+    difficulty += difficultyIncrease;
+
     // background
     bgX1 -= bgSpeed;
     bgX2 -= bgSpeed;
@@ -198,7 +203,7 @@ function update(){
     if(obstacleTimer >= nextObstacleTime){
         createObstacle();
         obstacleTimer = 0;
-        nextObstacleTime = randRange(40,80);
+        nextObstacleTime = Math.max(20, randRange(40,80) / difficulty);
     }
     bonusTimer++;
     if(bonusTimer >= nextBonusTime){
