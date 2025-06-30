@@ -13,7 +13,7 @@ const images = {
     background: loadImage('background.png'),
     player: loadImage('player.png'),
     obstacles: [1,2,3].map(i => loadImage(`obstacle_${i}.png`)),
-    bonuses: [1].map(i => loadImage(`bonus_${i}.png`)),
+    bonuses: [1,2,3,4].map(i => loadImage(`bonus_${i}.png`)),
     iconStar: loadImage('ic_star.webp'),
 };
 
@@ -155,9 +155,9 @@ function createBonus(){
         x: width,
         y: floorY - 200,
         img,
-        width:60,
-        height:60,
-        speed:10,
+        width:130,
+        height:130,
+        speed:8,
         update(){this.x -= this.speed * difficulty;},
         draw(){ctx.drawImage(img, this.x, this.y - this.height, this.width, this.height);},
         rect(){return {left:this.x+10,top:this.y-this.height+10,right:this.x+this.width-10,bottom:this.y-10};}
