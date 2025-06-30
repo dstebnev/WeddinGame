@@ -11,7 +11,7 @@ const assetsPath = 'assets/';
 // Images
 const images = {
     background: loadImage('backgorund.webp'),
-    player: loadImage('player_cat.webp'),
+    player: loadImage('player.png'),
     obstacles: [1,2,3].map(i => loadImage(`obstacle_${i}.webp`)),
     bonuses: [1,2,3,4,5,6,7,8,9].map(i => loadImage(`bonus_${i}.webp`)),
     iconStar: loadImage('ic_star.webp'),
@@ -84,8 +84,8 @@ const bgSpeed = 5;
 const player = {
     x: 100,
     y: height * 0.8,
-    width: 120,
-    height: 120,
+    width: 150,
+    height: 150,
     yVelocity: 0,
     gravity: 1.2,
     jumpStrength: -25,
@@ -107,7 +107,7 @@ const player = {
         }
     },
     draw(){
-        ctx.drawImage(images.player, this.x, this.y - this.height, this.width, this.height);
+        ctx.drawImage(images.player, this.x, this.y - this.height+20, this.width, this.height);
     },
     rect(){
         return {left:this.x+20, top:this.y-this.height+20, right:this.x+this.width-20, bottom:this.y-20};
@@ -315,7 +315,7 @@ function gameLoop(){
 
 // Events
 window.addEventListener('keydown', e=>{
-    if(e.code==='Space'){
+    if(e.code==='Space' || e.code==='Enter'){
         if(!gameStarted) startGame();
         else if(isGameOver) startGame();
         else player.jump();
