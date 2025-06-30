@@ -254,6 +254,12 @@ function draw(){
     ctx.drawImage(images.background, bgX1, 0, width, height);
     ctx.drawImage(images.background, bgX2, 0, width, height);
 
+    // dim the scene when the game is paused or over
+    if(!gameStarted || isGameOver){
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(0, 0, width, height);
+    }
+
     if(!gameStarted){
         ctx.fillStyle = 'white';
         ctx.font = '48px sans-serif';
