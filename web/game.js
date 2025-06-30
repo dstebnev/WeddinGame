@@ -35,6 +35,7 @@ let score = 0;
 // Scoreboard
 const scoreboardKey = 'scoreboard';
 let scoreboard = JSON.parse(localStorage.getItem(scoreboardKey) || '[]');
+scoreboard.sort((a,b)=>b.score - a.score);
 let currentUser = '';
 let resultSaved = false;
 
@@ -42,8 +43,10 @@ const usernameOverlay = document.getElementById('usernameOverlay');
 const usernameInput = document.getElementById('usernameInput');
 const startButton = document.getElementById('startButton');
 const scoreTableBody = document.querySelector('#scoreTable tbody');
+const scoreboardDiv = document.getElementById('scoreboard');
 
 function updateScoreboard(){
+    scoreboard.sort((a,b)=>b.score - a.score);
     scoreTableBody.innerHTML = '';
     scoreboard.forEach(entry=>{
         const tr = document.createElement('tr');
@@ -54,6 +57,7 @@ function updateScoreboard(){
 
 function saveResult(){
     scoreboard.push({name:currentUser, score});
+    scoreboard.sort((a,b)=>b.score - a.score);
     localStorage.setItem(scoreboardKey, JSON.stringify(scoreboard));
     updateScoreboard();
 }
@@ -159,6 +163,7 @@ function startGame(){
         usernameOverlay.style.display = 'flex';
         return;
     }
+    scoreboardDiv.style.display = 'none';
     gameStarted = true;
     isGameOver = false;
     hasWon = false;
@@ -233,6 +238,7 @@ function update(){
 }
 
 function draw(){
+    scoreboardDiv.style.display = (!gameStarted || isGameOver) ? 'block' : 'none';
     ctx.clearRect(0,0,width,height);
 
     // background
