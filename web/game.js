@@ -45,6 +45,17 @@ const startButton = document.getElementById('startButton');
 const scoreTableBody = document.querySelector('#scoreTable tbody');
 const scoreboardDiv = document.getElementById('scoreboard');
 
+// Tutorial message system
+const tutorialMessages = [];
+let firstObstacleMessageShown = false;
+let firstBonusMessageShown = false;
+
+function addTutorialMessage(text){
+    ctx.font = '32px sans-serif';
+    const widthText = ctx.measureText(text).width;
+    tutorialMessages.push({text, x: width, y: height - 40, speed: 6, width: widthText});
+}
+
 function updateScoreboard(){
     scoreboard.sort((a,b)=>b.score - a.score);
     scoreTableBody.innerHTML = '';
@@ -147,6 +158,10 @@ function createObstacle(){
         draw(){ctx.drawImage(img, this.x, this.y - this.height, this.width, this.height);},
         rect(){return {left:this.x+20,top:this.y-this.height+30,right:this.x+this.width-25,bottom:this.y-20};}
     });
+    if(!firstObstacleMessageShown){
+        addTutorialMessage('Перепрыгивай стоги сена на Enter');
+        firstObstacleMessageShown = true;
+    }
 }
 
 function createBonus(){
@@ -162,6 +177,10 @@ function createBonus(){
         draw(){ctx.drawImage(img, this.x, this.y - this.height, this.width, this.height);},
         rect(){return {left:this.x+10,top:this.y-this.height+10,right:this.x+this.width-10,bottom:this.y-10};}
     });
+    if(!firstBonusMessageShown){
+        addTutorialMessage('За бонус +10 баллов');
+        firstBonusMessageShown = true;
+    }
 }
 
 function randRange(min,max){return Math.floor(Math.random()*(max-min))+min;}
@@ -188,6 +207,9 @@ function startGame(){
     nextBonusTime = randRange(110,140);
     obstacles.length=0;
     bonuses.length=0;
+    tutorialMessages.length = 0;
+    firstObstacleMessageShown = false;
+    firstBonusMessageShown = false;
     startTime = performance.now();
 }
 
@@ -236,6 +258,16 @@ function update(){
         }
     });
 
+    tutorialMessages.forEach(m => {
+        m.x -= m.speed;
+    });
+
+    for(let i=tutorialMessages.length-1; i>=0; i--){
+        if(tutorialMessages[i].x + tutorialMessages[i].width < 0){
+            tutorialMessages.splice(i,1);
+        }
+    }
+
     // remove off screen
     for(let i=obstacles.length-1;i>=0;i--){
         if(obstacles[i].x + obstacles[i].width < 0) obstacles.splice(i,1);
@@ -273,6 +305,11 @@ function draw(){
     ctx.fillStyle = 'white';
     ctx.font = '32px sans-serif';
     ctx.fillText(score.toString().padStart(2,'0'), width - blockW +40, 60);
+
+    // tutorial messages
+    tutorialMessages.forEach(m => {
+        ctx.fillText(m.text, m.x, m.y);
+    });
 
 
     if(isGameOver){
