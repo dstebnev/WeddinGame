@@ -127,10 +127,10 @@ function createObstacle(){
     const img = images.obstacles[Math.floor(Math.random()*images.obstacles.length)];
     obstacles.push({
         x: width,
-        y: floorY,
+        y: floorY+45,
         img,
-        width:80,
-        height:80,
+        width:150,
+        height:150,
         speed:10,
         update(){this.x -= this.speed * difficulty;},
         draw(){ctx.drawImage(img, this.x, this.y - this.height, this.width, this.height);},
