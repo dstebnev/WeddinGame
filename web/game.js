@@ -146,7 +146,7 @@ function createObstacle(){
         speed:10,
         update(){this.x -= this.speed * difficulty;},
         draw(){ctx.drawImage(img, this.x, this.y - this.height, this.width, this.height);},
-        rect(){return {left:this.x+20,top:this.y-this.height+20,right:this.x+this.width-20,bottom:this.y-20};}
+        rect(){return {left:this.x+20,top:this.y-this.height+30,right:this.x+this.width-25,bottom:this.y-20};}
     });
 }
 
