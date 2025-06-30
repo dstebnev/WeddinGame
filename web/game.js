@@ -253,11 +253,11 @@ function draw(){
     if(!gameStarted){
         ctx.fillStyle = 'white';
         ctx.font = '48px sans-serif';
-        const title = 'Smart Home Runner';
+        const title = 'Свадьба Ксю и Дани';
         const titleW = ctx.measureText(title).width;
         ctx.fillText(title, (width-titleW)/2, height/2 - 60);
         ctx.font = '32px sans-serif';
-        const prompt = 'Click or press space to start';
+        const prompt = 'Нажми большой Enter для начала игры';
         const pW = ctx.measureText(prompt).width;
         ctx.fillText(prompt,(width-pW)/2, height/2);
         return;
