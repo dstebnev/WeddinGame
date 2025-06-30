@@ -7,10 +7,46 @@
     <style>
         html, body { margin:0; padding:0; overflow:hidden; }
         canvas { display:block; background:#000; }
+        #usernameOverlay {
+            position:absolute;
+            top:0; left:0; right:0; bottom:0;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            background:rgba(0,0,0,0.8);
+            color:#fff;
+            z-index:10;
+        }
+        #scoreboard {
+            position:absolute;
+            top:20px;
+            right:20px;
+            background:rgba(255,255,255,0.8);
+            color:#000;
+            padding:10px;
+            max-height:300px;
+            overflow-y:auto;
+        }
+        #scoreboard table{border-collapse:collapse;}
+        #scoreboard th,#scoreboard td{border:1px solid #000;padding:4px 8px;}
     </style>
 </head>
 <body>
-<canvas id="gameCanvas"></canvas>
-<script src="game.js"></script>
+    <div id="usernameOverlay">
+        <div>
+            <input id="usernameInput" placeholder="\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0438\u043c\u044f">
+            <button id="startButton">Start</button>
+        </div>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <div id="scoreboard">
+        <h3>\u0422\u0430\u0431\u043b\u0438\u0446\u0430 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u043e\u0432</h3>
+        <table id="scoreTable">
+            <thead><tr><th>\u0418\u043c\u044f</th><th>\u0411\u0430\u043b\u043b\u044b</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script src="game.js"></script>
 </body>
 </html>
