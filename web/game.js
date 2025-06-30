@@ -141,6 +141,7 @@ const floorY = player.y;
 const obstacles = [];
 const bonuses = [];
 let obstacleTimer = 0;
+let obstacleCount = 0; // number of obstacles created
 let bonusTimer = 0;
 let nextObstacleTime = randRange(40,80);
 let nextBonusTime = randRange(110,140);
@@ -158,8 +159,9 @@ function createObstacle(){
         draw(){ctx.drawImage(img, this.x, this.y - this.height, this.width, this.height);},
         rect(){return {left:this.x+20,top:this.y-this.height+30,right:this.x+this.width-25,bottom:this.y-20};}
     });
+    obstacleCount++; // track spawned obstacles
     if(!firstObstacleMessageShown){
-        addTutorialMessage("Перепрыгивай стоги сена! Нажимай Enter", 7);
+        addTutorialMessage("Перепрыгивай стоги сена!\nНажимай Enter", 7);
         firstObstacleMessageShown = true;
     }
 }
@@ -202,6 +204,7 @@ function startGame(){
     resultSaved = false;
     difficulty = 1;
     obstacleTimer = 0;
+    obstacleCount = 0;
     bonusTimer = 0;
     nextObstacleTime = randRange(40,80);
     nextBonusTime = randRange(110,140);
@@ -235,7 +238,7 @@ function update(){
         nextObstacleTime = Math.max(20, randRange(40,80) / difficulty);
     }
     bonusTimer++;
-    if(bonusTimer >= nextBonusTime){
+    if(obstacleCount >= 5 && bonusTimer >= nextBonusTime){
         if(Math.random() < 0.95) createBonus();
         bonusTimer = 0;
         nextBonusTime = randRange(110,140);
