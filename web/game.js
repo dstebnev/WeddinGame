@@ -65,12 +65,24 @@ function saveResult(){
 
 updateScoreboard();
 
-startButton.addEventListener('click', ()=>{
+startButton.addEventListener('click', () => {
     const name = usernameInput.value.trim();
-    if(name){
+    if (name) {
         currentUser = name;
         usernameOverlay.style.display = 'none';
         startGame();
+    }
+});
+
+// Allow starting the game with Enter key from the username input
+usernameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        const name = usernameInput.value.trim();
+        if (name) {
+            currentUser = name;
+            usernameOverlay.style.display = 'none';
+            startGame();
+        }
     }
 });
 
