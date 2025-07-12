@@ -13,6 +13,7 @@ const urlsToCache = [
   'assets/bonus_3.png',
   'assets/bonus_4.png',
   'assets/ic_star.webp'
+  , 'music/track1.MP3'
 ];
 
 self.addEventListener('install', event => {
