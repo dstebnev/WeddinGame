@@ -263,6 +263,7 @@ function update(){
     obstacles.forEach(o=>{
         if(intersects(player.rect(), o.rect())){
             isGameOver = true;
+            tutorialMessages.length = 0; // hide tutorial hints on game over
         }
     });
     bonuses.forEach((b,i)=>{
