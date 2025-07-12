@@ -355,7 +355,7 @@ function gameLoop(){
 window.addEventListener('keydown', e=>{
     // Ignore global key events when the username overlay is visible
     if (usernameOverlay.style.display !== 'none') return;
-    if(e.code==='Space' || e.code==='Enter'){
+    if(e.code==='Space' || e.code==='Enter' || e.code==='NumpadEnter'){
         if(!gameStarted) {
             startGame();
         } else if(!isGameOver) {
