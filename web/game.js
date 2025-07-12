@@ -59,9 +59,14 @@ function addTutorialMessage(text, speed){
 function updateScoreboard(){
     scoreboard.sort((a,b)=>b.score - a.score);
     scoreTableBody.innerHTML = '';
-    scoreboard.forEach(entry=>{
+    let highlighted = false;
+    scoreboard.forEach((entry, idx)=>{
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${entry.name}</td><td>${entry.score}</td>`;
+        tr.innerHTML = `<td>${idx+1}.</td><td>${entry.name}</td><td>${entry.score}</td>`;
+        if(!highlighted && isGameOver && entry.name === currentUser && entry.score === score){
+            tr.classList.add('highlight');
+            highlighted = true;
+        }
         scoreTableBody.appendChild(tr);
     });
 }
@@ -288,6 +293,7 @@ function update(){
 
 function draw(){
     scoreboardDiv.style.display = (!gameStarted || isGameOver) ? 'block' : 'none';
+    scoreboardDiv.classList.toggle('center', isGameOver);
     ctx.clearRect(0,0,width,height);
 
     // background
@@ -325,23 +331,19 @@ function draw(){
         if(!resultSaved){
             saveResult();
             resultSaved = true;
+            updateScoreboard();
         }
         ctx.fillStyle='white';
         ctx.font = '64px sans-serif';
-        const text = 'Game Over!';
+        const text = 'Game Over';
         const tW = ctx.measureText(text).width;
-        ctx.fillText(text, (width-tW)/2, height/2 - 40);
-        ctx.font='40px sans-serif';
-        const scoreText = 'Баллы: ' + score;
-        const stW = ctx.measureText(scoreText).width;
-        ctx.fillText(scoreText, (width-stW)/2, height/2+10);
+        ctx.fillText(text, (width-tW)/2, 80);
+
         ctx.font='32px sans-serif';
         const restartText1='Shift - снова играть';
         const restartText2='Tab - новый игрок';
-        const r1W=ctx.measureText(restartText1).width;
-        const r2W=ctx.measureText(restartText2).width;
-        ctx.fillText(restartText1, (width-r1W)/2, height/2+60);
-        ctx.fillText(restartText2, (width-r2W)/2, height/2+100);
+        ctx.fillText(restartText1, 40, height - 80);
+        ctx.fillText(restartText2, 40, height - 40);
     }
 }
 

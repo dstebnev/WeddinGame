@@ -43,8 +43,14 @@
             overflow-y:auto;
             font-family:'CCRFBZSR', sans-serif;
         }
+        #scoreboard.center {
+            top:120px;
+            left:50%;
+            transform:translateX(-50%);
+        }
         #scoreboard table{border-collapse:collapse;}
         #scoreboard th,#scoreboard td{border:1px solid #fff;padding:4px 8px;}
+        #scoreboard tr.highlight{background:rgba(255,255,255,0.2);}
     </style>
 </head>
 <body>
@@ -60,7 +66,7 @@
     <div id="scoreboard">
         <h3>Лидерборд</h3>
         <table id="scoreTable">
-            <thead><tr><th>Имя</th><th>Баллы</th></tr></thead>
+            <thead><tr><th>Место</th><th>Имя</th><th>Баллы</th></tr></thead>
             <tbody></tbody>
         </table>
     </div>
