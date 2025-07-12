@@ -59,16 +59,19 @@ function addTutorialMessage(text, speed){
 function updateScoreboard(){
     scoreboard.sort((a,b)=>b.score - a.score);
     scoreTableBody.innerHTML = '';
-    let highlighted = false;
+    let highlightedRow = null;
     scoreboard.forEach((entry, idx)=>{
         const tr = document.createElement('tr');
         tr.innerHTML = `<td>${idx+1}.</td><td>${entry.name}</td><td>${entry.score}</td>`;
-        if(!highlighted && isGameOver && entry.name === currentUser && entry.score === score){
+        if(!highlightedRow && isGameOver && entry.name === currentUser && entry.score === score){
             tr.classList.add('highlight');
-            highlighted = true;
+            highlightedRow = tr;
         }
         scoreTableBody.appendChild(tr);
     });
+    if (highlightedRow) {
+        scoreboardDiv.scrollTop = highlightedRow.offsetTop - scoreboardDiv.clientHeight / 2 + highlightedRow.clientHeight / 2;
+    }
 }
 
 function saveResult(){
