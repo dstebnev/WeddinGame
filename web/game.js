@@ -383,7 +383,7 @@ window.addEventListener('keydown', e=>{
         }
     } else if(isGameOver && (e.code==='ShiftLeft' || e.code==='ShiftRight')){
         startGame();
-    } else if(isGameOver && e.code==='Tab'){
+    } else if((!gameStarted || isGameOver) && e.code==='Tab'){
         e.preventDefault();
         currentUser='';
         usernameOverlay.style.display='flex';
