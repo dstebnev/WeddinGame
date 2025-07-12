@@ -51,7 +51,7 @@ let firstObstacleMessageShown = false;
 let firstBonusMessageShown = false;
 
 function addTutorialMessage(text, speed){
-    ctx.font = '32px sans-serif';
+    ctx.font = '32px "PressStart2P-Regular"';
     const widthText = ctx.measureText(text).width;
     tutorialMessages.push({text, x: width, y: height - 40, speed: speed, width: widthText});
 }
@@ -318,7 +318,7 @@ function draw(){
     ctx.fillRect(width - blockW - 20, 20, blockW, blockH);
     ctx.drawImage(images.iconStar, width - blockW - 10, 25, 40,40);
     ctx.fillStyle = 'white';
-    ctx.font = '32px sans-serif';
+    ctx.font = '32px "PressStart2P-Regular"';
     ctx.fillText(score.toString().padStart(2,'0'), width - blockW +40, 60);
 
     // tutorial messages
@@ -334,12 +334,12 @@ function draw(){
             updateScoreboard();
         }
         ctx.fillStyle='white';
-        ctx.font = '64px sans-serif';
+        ctx.font = '64px "PressStart2P-Regular"';
         const text = 'Game Over';
         const tW = ctx.measureText(text).width;
         ctx.fillText(text, (width-tW)/2, 80);
 
-        ctx.font='32px sans-serif';
+        ctx.font='32px "PressStart2P-Regular"';
         const restartText1='Shift - снова играть';
         const restartText2='Tab - новый игрок';
         ctx.fillText(restartText1, 40, height - 80);

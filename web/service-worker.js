@@ -2,7 +2,7 @@ const CACHE_NAME = 'weddin-game-cache-v1';
 const urlsToCache = [
   './',
   'game.js',
-  'fonts/CCRFBZSR.ttf',
+  'fonts/PressStart2P-Regular.ttf',
   'assets/background.png',
   'assets/player.png',
   'assets/obstacle_1.png',
