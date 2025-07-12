@@ -8,6 +8,20 @@ canvas.height = height;
 
 const assetsPath = 'assets/';
 
+// Background music
+const backgroundMusic = new Audio('music/track1.MP3');
+backgroundMusic.loop = true;
+backgroundMusic.addEventListener('ended', () => {
+    backgroundMusic.currentTime = 0;
+    backgroundMusic.play().catch(()=>{});
+});
+
+function startBackgroundMusic(){
+    backgroundMusic.currentTime = 0;
+    backgroundMusic.play().catch(()=>{});
+}
+document.addEventListener('keydown', startBackgroundMusic, {once:true});
+
 // Images
 const images = {
     background: loadImage('background.png'),
