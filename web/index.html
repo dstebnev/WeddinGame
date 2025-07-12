@@ -47,6 +47,9 @@
             max-height:300px;
             overflow-y:auto;
             font-family:'PressStart2P-Regular', sans-serif;
+            z-index: 11;
+            left:50%;
+            transform:translateX(-50%);
         }
         #scoreboard.center {
             top:120px;
@@ -59,6 +62,13 @@
     </style>
 </head>
 <body>
+    <div id="scoreboard">
+        <h3>Лидерборд</h3>
+        <table id="scoreTable">
+            <thead><tr><th>Место</th><th>Имя</th><th>Баллы</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </div>
     <div id="usernameOverlay">
         <h1>Свадьба Ксюши и Дани</h1>
         <p>Нажми большой Enter для начала</p>
@@ -68,13 +78,6 @@
         </div>
     </div>
     <canvas id="gameCanvas"></canvas>
-    <div id="scoreboard">
-        <h3>Лидерборд</h3>
-        <table id="scoreTable">
-            <thead><tr><th>Место</th><th>Имя</th><th>Баллы</th></tr></thead>
-            <tbody></tbody>
-        </table>
-    </div>
     <script src="game.js"></script>
     <script>
         if ('serviceWorker' in navigator) {

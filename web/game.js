@@ -337,7 +337,7 @@ function draw(){
         ctx.font = '64px "PressStart2P-Regular"';
         const text = 'Game Over';
         const tW = ctx.measureText(text).width;
-        ctx.fillText(text, (width-tW)/2, 80);
+        ctx.fillText(text, (width-tW)/2, 100);
 
         ctx.font='32px "PressStart2P-Regular"';
         const restartText1='Shift - снова играть';
