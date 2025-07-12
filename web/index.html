@@ -30,12 +30,22 @@
             font-family:'PressStart2P-Regular', sans-serif;
         }
         #usernameOverlay h1{
-            margin-bottom:20px;
+            margin-bottom:45px;
             font-size:48px;
         }
         #usernameOverlay p{
             margin-bottom:20px;
             font-size:24px;
+        }
+        #usernameInput {
+            padding:10px;
+            font-size:24px;
+            width:300px;
+            margin-bottom:20px;
+            border:none;
+            border-radius:5px;
+            font-family: PressStart2P-Regular, sans-serif;
+            text-align: center;
         }
         #scoreboard {
             position:absolute;
@@ -55,27 +65,37 @@
             top:120px;
             left:50%;
             transform:translateX(-50%);
+            padding: 12px 50px;
         }
-        #scoreboard table{border-collapse:collapse;}
-        #scoreboard th,#scoreboard td{border:1px solid #fff;padding:4px 8px;}
-        #scoreboard tr.highlight{background:rgba(255,255,255,0.2);}
+
+        #scoreboard table {
+            border-collapse:collapse;
+        }
+        #scoreboard tr {
+            height: 30px;
+        }
+        #scoreboard th,#scoreboard td {
+            padding-right: 45px;
+        }
+        #scoreboard tr.highlight {
+            background:rgba(255,255,255,0.2);
+        }
     </style>
 </head>
 <body>
     <div id="scoreboard">
-        <h3>Лидерборд</h3>
+        <h3 style="margin-left: 25%;">Лидерборд</h3>
         <table id="scoreTable">
-            <thead><tr><th>Место</th><th>Имя</th><th>Баллы</th></tr></thead>
             <tbody></tbody>
         </table>
     </div>
     <div id="usernameOverlay">
         <h1>Свадьба Ксюши и Дани</h1>
-        <p>Нажми большой Enter для начала</p>
         <div>
             <input id="usernameInput" placeholder="Введи имя">
-            <button id="startButton">Начать</button>
+            <button style="visibility: hidden;width: 0;" id="startButton">Начать</button>
         </div>
+        <p>Нажми большой Enter для начала</p>
     </div>
     <canvas id="gameCanvas"></canvas>
     <script src="game.js"></script>

@@ -62,7 +62,7 @@ function updateScoreboard(){
     let highlightedRow = null;
     scoreboard.forEach((entry, idx)=>{
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${idx+1}.</td><td>${entry.name}</td><td>${entry.score}</td>`;
+        tr.innerHTML = `<td>${idx+1}. ${entry.name}</td><td>${entry.score}</td>`;
         if(!highlightedRow && isGameOver && entry.name === currentUser && entry.score === score){
             tr.classList.add('highlight');
             highlightedRow = tr;
@@ -317,13 +317,13 @@ function draw(){
     // UI
     // score block
     ctx.fillStyle = 'rgba(0,0,0,0.7)';
-    const blockW = 150;
+    const blockW = 170;
     const blockH = 60;
     ctx.fillRect(width - blockW - 20, 20, blockW, blockH);
-    ctx.drawImage(images.iconStar, width - blockW - 10, 25, 40,40);
+    ctx.drawImage(images.iconStar, width - blockW - 10, blockH/2, 40,40);
     ctx.fillStyle = 'white';
     ctx.font = '32px "PressStart2P-Regular"';
-    ctx.fillText(score.toString().padStart(2,'0'), width - blockW +40, 60);
+    ctx.fillText(score.toString().padStart(2,'0'), width - blockW +40, blockH/2 + 35);
 
     // tutorial messages
     tutorialMessages.forEach(m => {
