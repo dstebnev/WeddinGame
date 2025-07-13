@@ -9,18 +9,76 @@ canvas.height = height;
 const assetsPath = 'assets/';
 
 // Background music
-const backgroundMusic = new Audio('music/track1.MP3');
-backgroundMusic.loop = true;
-backgroundMusic.addEventListener('ended', () => {
-    backgroundMusic.currentTime = 0;
-    backgroundMusic.play().catch(()=>{});
-});
+const levelMusic = new Audio('music/track1.MP3');
+levelMusic.loop = true;
+const gameOverMusic = new Audio('music/gameover.mp3');
 
-function startBackgroundMusic(){
-    backgroundMusic.currentTime = 0;
-    backgroundMusic.play().catch(()=>{});
+function playLevelMusic(){
+    levelMusic.currentTime = 0;
+    levelMusic.volume = 1;
+    levelMusic.play().catch(()=>{});
 }
-document.addEventListener('keydown', startBackgroundMusic, {once:true});
+
+function stopLevelMusic(){
+    levelMusic.pause();
+    levelMusic.currentTime = 0;
+}
+
+function stopGameOverMusic(){
+    gameOverMusic.pause();
+    gameOverMusic.currentTime = 0;
+}
+
+function stopAllMusic(){
+    stopLevelMusic();
+    stopGameOverMusic();
+}
+
+function crossFade(outAudio, inAudio, duration = 1000){
+    const steps = 20;
+    const stepTime = duration / steps;
+    inAudio.volume = 0;
+    inAudio.currentTime = 0;
+    inAudio.play().catch(()=>{});
+    let step = 0;
+    return new Promise(resolve => {
+        const id = setInterval(()=>{
+            step++;
+            outAudio.volume = Math.max(0, 1 - step/steps);
+            inAudio.volume = Math.min(1, step/steps);
+            if(step >= steps){
+                clearInterval(id);
+                outAudio.pause();
+                outAudio.volume = 1;
+                resolve();
+            }
+        }, stepTime);
+    });
+}
+
+function fadeOut(audio, duration = 2000){
+    const steps = 20;
+    const stepTime = duration / steps;
+    const startVol = audio.volume;
+    let step = 0;
+    return new Promise(resolve => {
+        const id = setInterval(()=>{
+            step++;
+            audio.volume = Math.max(0, startVol * (1 - step/steps));
+            if(step >= steps){
+                clearInterval(id);
+                audio.pause();
+                audio.volume = startVol;
+                resolve();
+            }
+        }, stepTime);
+    });
+}
+
+async function onGameOverAudio(){
+    await crossFade(levelMusic, gameOverMusic, 1000);
+    await fadeOut(gameOverMusic, 2000);
+}
 
 // Images
 const images = {
@@ -254,6 +312,8 @@ function startGame(){
     player.y = floorY;
     player.yVelocity = 0;
     player.isJumping = false;
+    stopGameOverMusic();
+    playLevelMusic();
     startTime = performance.now();
 }
 
@@ -291,8 +351,9 @@ function update(){
 
     // collisions
     obstacles.forEach(o=>{
-        if(intersects(player.rect(), o.rect())){
+        if(!isGameOver && intersects(player.rect(), o.rect())){
             isGameOver = true;
+            onGameOverAudio();
             tutorialMessages.length = 0; // hide tutorial hints on game over
         }
     });
@@ -403,6 +464,7 @@ window.addEventListener('keydown', e=>{
         focusUsernameInput();
         gameStarted=false;
         isGameOver=false;
+        stopAllMusic();
         updateScoreboard();
     }
 });
