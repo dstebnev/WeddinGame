@@ -12,6 +12,12 @@ const assetsPath = 'assets/';
 const levelMusic = new Audio('music/track1.MP3');
 levelMusic.loop = true;
 const gameOverMusic = new Audio('music/gameover.mp3');
+const punchSound = new Audio('music/punch.mp3');
+
+function playPunch(){
+    punchSound.currentTime = 0;
+    punchSound.play().catch(()=>{});
+}
 
 function playLevelMusic(){
     levelMusic.currentTime = 0;
@@ -352,6 +358,7 @@ function update(){
     // collisions
     obstacles.forEach(o=>{
         if(!isGameOver && intersects(player.rect(), o.rect())){
+            playPunch();
             isGameOver = true;
             onGameOverAudio();
             tutorialMessages.length = 0; // hide tutorial hints on game over
