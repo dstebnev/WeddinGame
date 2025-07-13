@@ -63,6 +63,8 @@ const scoreboardDiv = document.getElementById('scoreboard');
 function focusUsernameInput(){
     if (usernameOverlay.style.display !== 'none' && document.activeElement !== usernameInput) {
         usernameInput.focus();
+        usernameInput.textContent = '';
+        usernameInput.value = '';
     }
 }
 setInterval(focusUsernameInput, 100);
