@@ -388,6 +388,8 @@ window.addEventListener('keydown', e=>{
         currentUser='';
         usernameOverlay.style.display='flex';
         gameStarted=false;
+        isGameOver=false;
+        updateScoreboard();
     }
 });
 
