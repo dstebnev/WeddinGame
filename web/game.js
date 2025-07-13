@@ -59,6 +59,16 @@ const startButton = document.getElementById('startButton');
 const scoreTableBody = document.querySelector('#scoreTable tbody');
 const scoreboardDiv = document.getElementById('scoreboard');
 
+// keep the username input focused whenever the overlay is visible
+function focusUsernameInput(){
+    if (usernameOverlay.style.display !== 'none' && document.activeElement !== usernameInput) {
+        usernameInput.focus();
+    }
+}
+setInterval(focusUsernameInput, 100);
+// initial focus on page load
+focusUsernameInput();
+
 // Tutorial message system
 const tutorialMessages = [];
 let firstObstacleMessageShown = false;
@@ -218,6 +228,7 @@ function intersects(r1,r2){
 function startGame(){
     if(!currentUser){
         usernameOverlay.style.display = 'flex';
+        focusUsernameInput();
         return;
     }
     scoreboardDiv.style.display = 'none';
@@ -387,6 +398,7 @@ window.addEventListener('keydown', e=>{
         e.preventDefault();
         currentUser='';
         usernameOverlay.style.display='flex';
+        focusUsernameInput();
         gameStarted=false;
         isGameOver=false;
         updateScoreboard();
