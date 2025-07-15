@@ -288,10 +288,10 @@ function createObstacle(){
     };
     obstacles.push(obstacle);
     obstacleCount++; // track spawned obstacles
-    if(!firstObstacleMessageShown){
-        addTutorialMessage("Перепрыгивай стоги сена!\nНажимай Enter", 7);
-        firstObstacleMessageShown = true;
-    }
+    // if(!firstObstacleMessageShown){
+    //     addTutorialMessage("Перепрыгивай стоги сена!\nНажимай Enter", 7);
+    //     firstObstacleMessageShown = true;
+    // }
 }
 
 function createBonus(){
