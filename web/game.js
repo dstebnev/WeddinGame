@@ -93,6 +93,7 @@ const images = {
     obstacles: [1,2,3].map(i => loadImage(`obstacle_${i}.png`)),
     bonuses: [1,2,3,4].map(i => loadImage(`bonus_${i}.png`)),
     iconStar: loadImage('ic_star.webp'),
+    pressEnter: loadImage('pressenter.png'),
 };
 
 function loadImage(name){
@@ -248,17 +249,30 @@ let nextBonusTime = randRange(110,140);
 
 function createObstacle(){
     const img = images.obstacles[Math.floor(Math.random()*images.obstacles.length)];
-    obstacles.push({
+    const obstacle = {
         x: width,
         y: floorY+45,
         img,
         width:150,
         height:150,
         speed:10,
+        isFirst: obstacleCount === 0,
         update(){this.x -= this.speed * difficulty;},
-        draw(){ctx.drawImage(img, this.x, this.y - this.height, this.width, this.height);},
+        draw(){
+            ctx.drawImage(img, this.x, this.y - this.height, this.width, this.height);
+            if(this.isFirst){
+                const peW = 200;
+                const peH = 200;
+                ctx.drawImage(images.pressEnter,
+                    this.x + (this.width - peW)/2,
+                    this.y - this.height - peH - 10,
+                    peW,
+                    peH);
+            }
+        },
         rect(){return {left:this.x+20,top:this.y-this.height+30,right:this.x+this.width-25,bottom:this.y-20};}
-    });
+    };
+    obstacles.push(obstacle);
     obstacleCount++; // track spawned obstacles
     if(!firstObstacleMessageShown){
         addTutorialMessage("Перепрыгивай стоги сена!\nНажимай Enter", 7);
