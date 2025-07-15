@@ -13,6 +13,15 @@ const levelMusic = new Audio('music/track1.MP3');
 levelMusic.loop = true;
 const gameOverMusic = new Audio('music/gameover.mp3');
 const punchSound = new Audio('music/punch.mp3');
+// Keep track of audio transition intervals so they can be cancelled
+let audioIntervals = [];
+
+function clearAudioIntervals(){
+    for(const id of audioIntervals){
+        clearInterval(id);
+    }
+    audioIntervals.length = 0;
+}
 
 function playPunch(){
     punchSound.currentTime = 0;
@@ -38,6 +47,7 @@ function stopGameOverMusic(){
 function stopAllMusic(){
     stopLevelMusic();
     stopGameOverMusic();
+    clearAudioIntervals();
 }
 
 function crossFade(outAudio, inAudio, duration = 1000){
@@ -54,11 +64,13 @@ function crossFade(outAudio, inAudio, duration = 1000){
             inAudio.volume = Math.min(1, step/steps);
             if(step >= steps){
                 clearInterval(id);
+                audioIntervals = audioIntervals.filter(i => i !== id);
                 outAudio.pause();
                 outAudio.volume = 1;
                 resolve();
             }
         }, stepTime);
+        audioIntervals.push(id);
     });
 }
 
@@ -73,11 +85,13 @@ function fadeOut(audio, duration = 2000){
             audio.volume = Math.max(0, startVol * (1 - step/steps));
             if(step >= steps){
                 clearInterval(id);
+                audioIntervals = audioIntervals.filter(i => i !== id);
                 audio.pause();
                 audio.volume = startVol;
                 resolve();
             }
         }, stepTime);
+        audioIntervals.push(id);
     });
 }
 
@@ -311,6 +325,7 @@ function startGame(){
         focusUsernameInput();
         return;
     }
+    clearAudioIntervals();
     scoreboardDiv.style.display = 'none';
     gameStarted = true;
     isGameOver = false;
