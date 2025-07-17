@@ -60,12 +60,14 @@
             z-index: 11;
             left:50%;
             transform:translateX(-50%);
+            min-width: 300px;
+            border-radius: 10px;
+            padding: 12px 50px;
         }
         #scoreboard.center {
             top:120px;
             left:50%;
             transform:translateX(-50%);
-            padding: 12px 50px;
         }
 
         #scoreboard table {
@@ -74,8 +76,14 @@
         #scoreboard tr {
             height: 30px;
         }
-        #scoreboard th,#scoreboard td {
+        #scoreboard th,#scoreboard td:first {
             padding-right: 45px;
+            padding-left: 10px;
+        }
+        #scoreboard th,#scoreboard td:last-child{
+            text-align: right;
+            padding-left: 45px;
+            padding-right: 10px;
         }
         #scoreboard tr.highlight {
             background:rgba(255,255,255,0.2);
@@ -85,7 +93,7 @@
 <body>
     <div id="scoreboard">
         <h3 style="margin-left: 25%;">Лидерборд</h3>
-        <table id="scoreTable">
+        <table id="scoreTable" style="min-width: 300px;">
             <tbody></tbody>
         </table>
     </div>
